@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-7">
+    <div class="card-dark p-5 shadow-lg">
+      <h3 class="page-title mb-4"><i class="bi bi-pencil-square"></i> {{ title }}</h3>
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label" style="color:#aaa;">Title</label>
+          {{ form.title }}
+        </div>
+        <div class="mb-3">
+          <label class="form-label" style="color:#aaa;">Content</label>
+          {{ form.content }}
+        </div>
+        <div class="mb-3">
+          <label class="form-label" style="color:#aaa;">Note Color</label><br>
+          {{ form.color }}
+        </div>
+        <div class="d-flex gap-2 mt-4">
+          <button class="btn btn-warning fw-bold flex-grow-1" style="border-radius:12px;">
+            <i class="bi bi-save"></i> Save Note
+          </button>
+          <a href="{% url 'note_list' %}" class="btn btn-outline-secondary flex-grow-1" style="border-radius:12px;">
+            Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="page-title"><i class="bi bi-sticky"></i> My Notes</h2>
+  <a href="{% url 'note_create' %}" class="btn btn-warning fw-bold" style="border-radius:12px;">
+    <i class="bi bi-plus-lg"></i> New Note
+  </a>
+</div>
+
+{% if notes %}
+<div class="row">
+  {% for note in notes %}
+  <div class="col-md-4 col-sm-6 mb-4">
+    <div class="note-card p-4" style="background-color: {{ note.color }}; min-height: 200px;">
+      <h5 class="note-title"><i class="bi bi-pin-angle-fill"></i> {{ note.title }}</h5>
+      <p class="note-content mt-2">{{ note.content|truncatechars:120 }}</p>
+      <small style="color:#444;"><i class="bi bi-clock"></i> {{ note.updated_at|date:"d M Y, H:i" }}</small>
+      <div class="mt-3 d-flex gap-2">
+        <a href="{% url 'note_edit' note.pk %}" class="btn btn-sm btn-dark flex-grow-1">
+          <i class="bi bi-pencil"></i> Edit
+        </a>
+        <a href="{% url 'note_delete' note.pk %}" class="btn btn-sm btn-danger flex-grow-1">
+          <i class="bi bi-trash"></i> Delete
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="text-center mt-5">
+  <i class="bi bi-journal-x" style="font-size:5rem;color:#333;"></i>
+  <h4 class="mt-3" style="color:#555;">No notes yet!</h4>
+  <a href="{% url 'note_create' %}" class="btn btn-warning mt-2">Create your first note</a>
+</div>
+{% endif %}
+{% endblock %}
